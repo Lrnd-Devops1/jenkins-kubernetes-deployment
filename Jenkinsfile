@@ -11,16 +11,16 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/Bravinsimiyu/jenkins-kubernetes-deployment.git'
+        git 'https://github.com/Lrnd-Devops1/jenkins-kubernetes-deployment.git'
       }
     }
 
     stage('Build image') {
       steps{
-        sh 'docker build -t bravinwasike/react-app .'
-        // script {
-        //   dockerImage = docker build -t bravinwasike/react-app .
-        // }
+        script {
+          dockerImage = docker.build dockerimagename
+        }
+        //sh 'docker build -t bravinwasike/react-app .'
       }
     }
 
