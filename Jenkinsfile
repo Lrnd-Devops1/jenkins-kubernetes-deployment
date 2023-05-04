@@ -32,7 +32,7 @@ pipeline {
         script {
           //docker.withRegistry('https://hub.docker.com' ) {
             dockerImage.push("latest")
-          }
+          //}
         }
       }
     }
