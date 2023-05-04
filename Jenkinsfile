@@ -30,7 +30,7 @@ pipeline {
            }
       steps{
         script {
-          docker.withRegistry('https://hub.docker.com' ) {
+          //docker.withRegistry('https://hub.docker.com' ) {
             dockerImage.push("latest")
           }
         }
