@@ -30,7 +30,7 @@ pipeline {
            }
       steps{
         script {
-          docker.withRegistry('https://hub.docker.com/repositories/rajarnd' , registryCredential) {
+          docker.withCredentials(registryCredential) {
             dockerImage.push()
           }
         }
