@@ -3,6 +3,7 @@ pipeline {
   environment {
     dockerimagename = "rajarnd/react-app"
     dockerImage = ""
+    DOCKERHUB_CREDENTIALS=credentials('dockerhub-credentials')
   }
 
   agent any
@@ -23,19 +24,20 @@ pipeline {
         //sh 'docker build -t bravinwasike/react-app .'
       }
     }
+    stage('Login') {
 
-    stage('Pushing Image') {
-      environment {
-               registryCredential = 'dockerhub-credentials'
-           }
-      steps{
-        script {
-          docker.withCredentials(registryCredential) {
-            dockerImage.push()
-          }
-        }
-      }
-    }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push rajarnd/react-app:latest'
+			}
+		}
+   
 
     stage('Deploying React.js container to Kubernetes') {
       steps {
